@@ -3,14 +3,34 @@ package com.example.kcluster;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 public class KMeans {
     private Random random = new Random();
 
-//    public Map<Centroid, List<Location>> fitCentroid(List<Location> locationList, int k, Distance distance, int maxIterations){
-//
-//    }
+    public Map<Centroid, List<Location>> fitCentroid(List<Location> locationList, int k, Distance distance, int maxIterations){
+        List<Centroid> centroids = generateRandomCentroids(locationList, k);
+        Map<Centroid, List<Location>> clusters = new HashMap<>();
+        Map<Centroid, List<Location>> previousClusters = new HashMap<>();
+
+        for (int i=0; i<maxIterations; i++){
+            boolean isLastIteration = i == maxIterations - 1;
+            for(Location location: locationList){
+                Centroid centroid = findNearestCentroid(location, centroids, distance);
+                assignLocationToNearestCentroidCluster(clusters, location, centroid);
+            }
+
+            boolean endIteration = isLastIteration || clusters.equals(previousClusters);
+            previousClusters = clusters;
+            if(endIteration){
+                break;
+            }
+            centroids = findCenterOfClusters(clusters);
+            clusters = new HashMap<>();
+        }
+        return previousClusters;
+    }
 
     public List<Centroid> generateRandomCentroids(List<Location> locationList, int k){
         List<Centroid> generatedCentroids = new ArrayList<>();
@@ -63,13 +83,30 @@ public class KMeans {
         });
     }
 
-//    public Centroid findCenterOfClusterUsingMean(Centroid centroid, List<Location> clusterLocationList){
-//        if (clusterLocationList == null || clusterLocationList.isEmpty()){
-//            return centroid;
-//        }
-//
-//
-//    }
+    public Centroid findCenterOfClusterUsingMean(Centroid centroid, List<Location> clusterLocationList){
+        if (clusterLocationList == null || clusterLocationList.isEmpty()){
+            return centroid;
+        }
+
+        Map<String, Double> mean = centroid.getCoordinates();
+        clusterLocationList.stream().flatMap((e-> e.getCoordinates().keySet().stream()))
+                .forEach(key-> mean.put(key,0.0));
+
+        for(Location location:clusterLocationList){
+            location.getCoordinates().forEach(
+                    (key,value)-> mean.compute(key,(meanKey, meaValue) -> value + meaValue)
+            );
+        }
+
+        mean.forEach((key, value) -> mean.put(key, value/clusterLocationList.size()));
+
+        return new Centroid(mean);
+    }
+
+    public List<Centroid> findCenterOfClusters(Map<Centroid, List<Location>> clusters){
+        return clusters.entrySet().stream().map(e-> findCenterOfClusterUsingMean(e.getKey(),e.getValue()))
+                .collect(toList());
+    }
 
     /*
         List.of (locations)
