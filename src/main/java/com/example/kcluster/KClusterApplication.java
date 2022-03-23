@@ -17,6 +17,33 @@ public class KClusterApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(KClusterApplication.class, args);
+
+        /*
+            Locations
+
+Dansoman
+
+Pizza Man Chicken Man (5.53913220702999, -0.264491303779941)
+Dansoman Police Station - (5.544470970784894, -0.2649036514726285)
+Burger King - (5.545781278363159, -0.2643876571337587)
+
+Mataheko
+
+Thomas Eye Clinic - ( 5.562648281823999, -0.24825504102584908 )
+Jovix - (5.56965321254956, -0.25658061726295717)
+Nap Lodge - (5.565253784097915, -0.2570526860186695)
+Mataheko Pharmacy - (5.568898191639492, -0.25152432838932154)
+
+
+Ridge
+
+Cal Bank - ( 5.564601700957673, -0.19498874963012577)
+Ridge Hospital - ( 5.562038909087668, -0.19863655365153912 )
+Baffy Eatery - ( 5.564014170084097,  -0.18623759027055875 )
+Papaye Osu - ( 5.560788594700213,  -0.18220145757480652)
+
+         */
+
         KMeans kMeans = new KMeans();
         Map<String, Double> dpizzaMan = Map.of("latitude", 5.53913220702999, "longitude", -0.264491303779941);
         Map<String, Double> meyeclinic = Map.of("latitude", 5.562648281823999, "longitude", -0.24825504102584908);
