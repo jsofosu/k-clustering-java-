@@ -62,4 +62,21 @@ public class KMeans {
             return list;
         });
     }
+
+//    public Centroid findCenterOfClusterUsingMean(Centroid centroid, List<Location> clusterLocationList){
+//        if (clusterLocationList == null || clusterLocationList.isEmpty()){
+//            return centroid;
+//        }
+//
+//
+//    }
+
+    /*
+        List.of (locations)
+        for each location in locations
+        sum += location
+     */
+
+
+
 }

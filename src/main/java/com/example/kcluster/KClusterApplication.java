@@ -21,7 +21,11 @@ public class KClusterApplication {
         List<Location> locationList = List.of(location,location2);
 
         List<Centroid> generatedCentroids = kMeans.generateRandomCentroids(locationList, 2);
-        System.out.println(generatedCentroids);
+        for (Centroid centroid: generatedCentroids){
+            System.out.println(centroid.getCoordinates());
+        }
+        //System.out.println(generatedCentroids.get(0).getCoordinates());
+       // System.out.println(generatedCentroids);
 
     }
 

@@ -17,3 +17,19 @@ class EuclideanDistanceTest {
         assertEquals(result, 5);
     }
 }
+
+/*
+        Average
+(k1,currentValue)
+latitude: currentValue
+longitude: currentValue
+
+location to be added to the average
+
+(k,v)
+latitude: 8.0
+longitude:6.0
+
+(k:latitude, v:8.0) -> average.compute(k,(k1, currentValue) -> v+currentValue)
+
+ */
