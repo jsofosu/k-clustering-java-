@@ -22,16 +22,16 @@ public class EuclideanDistance implements Distance{
         double sum = 0.0;
         for (String key: point1.keySet()){
             double  firstValue = point1.get(key);
-            log.info(" : {} has value {}", key, point1.get(key));
+            //log.info(" : {} has value {}", key, point1.get(key));
             double secondValue = point2.get(key);
-            log.info(" : {} has value {}", key, point2.get(key));
-            System.out.println();
+            //log.info(" : {} has value {}", key, point2.get(key));
+            //System.out.println();
             powerofValue = Math.pow(firstValue-secondValue, 2);
-            log.info("Change in {}", powerofValue);
+            //log.info("Change in {}", powerofValue);
             sum += powerofValue;
-            log.info("Sum of power {}", sum);
+            //log.info("Sum of power {}", sum);
         }
-        log.info("Square root of sum {}",Math.sqrt(sum));
+        //log.info("Square root of sum {}",Math.sqrt(sum));
         return Math.sqrt(sum);
     }
 }
