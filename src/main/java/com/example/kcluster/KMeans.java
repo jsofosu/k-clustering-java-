@@ -34,15 +34,15 @@ public class KMeans {
 
     public List<Centroid> generateRandomCentroids(List<Location> locationList, int k){
         List<Centroid> generatedCentroids = new ArrayList<>();
-        Map<String,Double> maxLocation = new HashMap<>();
-        Map<String, Double> minLocation = new HashMap<>();
+//        Map<String,Double> maxLocation = new HashMap<>();
+//        Map<String, Double> minLocation = new HashMap<>();
 
-        for(Location location : locationList){
-            location.getCoordinates().forEach((key, value) -> {
-                maxLocation.compute(key, (k1, max) -> max == null || value > max?value:max );
-                minLocation.compute(key, (k1, min) -> min == null || value < min ? value:min);
-            });
-        }
+//        for(Location location : locationList){
+//            location.getCoordinates().forEach((key, value) -> {
+//                maxLocation.compute(key, (k1, max) -> max == null || value > max?value:max );
+//                minLocation.compute(key, (k1, min) -> min == null || value < min ? value:min);
+//            });
+//        }
 
         Set<String>  locationKeys = locationList.stream()
                 .flatMap(e-> e.getCoordinates().keySet().stream())
@@ -50,9 +50,10 @@ public class KMeans {
         for(int i = 0; i< k; i++){
             Map<String, Double> locations = new HashMap<>();
             for(String locationKey:locationKeys){
-                double max = maxLocation.get(locationKey);
-                double min = minLocation.get(locationKey);
-                locations.put(locationKey,random.nextDouble()*(max - min) + min);
+//                double max = maxLocation.get(locationKey);
+//                double min = minLocation.get(locationKey);
+                //System.out.println(locationList.get(random.nextInt()).getCoordinates().get(locationKey));
+                locations.put(locationKey, locationList.get(random.nextInt(locationList.size())).getCoordinates().get(locationKey));
             }
             generatedCentroids.add(new Centroid(locations));
         }
